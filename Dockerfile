@@ -8,7 +8,6 @@ RUN yum install python3 -y
 RUN pip3 install --upgrade pip
 COPY requirements.txt /home
 RUN pip3 install -r /home/requirements.txt
-COPY WEB_APP Test_App
-WORKDIR Test_App
+WORKDIR WEB_APP
 ENTRYPOINT ["python3", "app.py"]
 EXPOSE 3000 5050
