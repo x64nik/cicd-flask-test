@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: basic-flask-app-demo
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: basic-flask-app-demo
