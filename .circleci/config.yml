@@ -23,6 +23,14 @@ jobs:
           name: "check code"
           command: "pwd && ls -la"
 
+      - setup_remote_docker:
+          docker_layer_caching: true
+      
+      - run:
+          name: "check docker"
+          command: "which docker && docker --version"
+
+
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
