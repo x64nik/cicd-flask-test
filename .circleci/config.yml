@@ -31,7 +31,7 @@ jobs:
           command: "which docker && docker --version"
       - run:
           name: "check docker creds"
-          comman: "echo $DOCKERHUB_USERNAME && echo $DOCKERHUB_PASS"
+          command: "echo $DOCKERHUB_USERNAME && echo $DOCKERHUB_PASS"
 
 
 # Orchestrate jobs using workflows
