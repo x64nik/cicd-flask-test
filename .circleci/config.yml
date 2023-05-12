@@ -23,7 +23,7 @@ jobs:
       #     name: "check code"
       #     command: "pwd && ls -la"
 
-      # - setup_remote_docker:
+      - setup_remote_docker:
           docker_layer_caching: true
       
       - run:
