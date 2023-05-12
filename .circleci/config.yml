@@ -37,7 +37,8 @@ jobs:
           command: |
             pip3 install flask
             docker build -t x64nik/cci-flask-test:cci-flask-test .
-
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push x64nik/cci-flask-test:cci-flask-test
 
 
 # Orchestrate jobs using workflows
