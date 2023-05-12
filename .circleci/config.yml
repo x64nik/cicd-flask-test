@@ -3,7 +3,7 @@ version: 2.1
 jobs:
   test-build-01:
     docker:
-      - image:  cimg/python3
+      - image:  python3.8
 
     steps:
       - checkout
