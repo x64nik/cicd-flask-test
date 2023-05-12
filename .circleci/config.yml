@@ -17,8 +17,8 @@ jobs:
 
       - run:
           name: "install pip flask"
-          command: "pip install flask"
-      
+          command: "pip3 install flask"
+
 
 
 # Orchestrate jobs using workflows
