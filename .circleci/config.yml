@@ -7,23 +7,23 @@ jobs:
 
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo 'python3 saying hello'" 
+      # - run:
+      #     name: "Say hello"
+      #     command: "echo 'python3 saying hello'" 
        
-      - run:
-          name: "check python3 and pip"
-          command: "which python3 && python3 --version && which pip && which pip3"
+      # - run:
+      #     name: "check python3 and pip"
+      #     command: "which python3 && python3 --version && which pip && which pip3"
 
-      - run:
-          name: "install flask"
-          command: "pip3 install flask"
+      # - run:
+      #     name: "install flask"
+      #     command: "pip3 install flask"
 
-      - run:
-          name: "check code"
-          command: "pwd && ls -la"
+      # - run:
+      #     name: "check code"
+      #     command: "pwd && ls -la"
 
-      - setup_remote_docker:
+      # - setup_remote_docker:
           docker_layer_caching: true
       
       - run:
@@ -32,6 +32,12 @@ jobs:
       - run:
           name: "check docker creds"
           command: "echo $DOCKERHUB_USERNAME && echo $DOCKERHUB_PASS"
+      - run:
+          name: "build and push to docker hub"
+          command: |
+            pip3 install flask
+            docker build -t x64nik/cci-flask-test:cci-flask-test .
+
 
 
 # Orchestrate jobs using workflows
