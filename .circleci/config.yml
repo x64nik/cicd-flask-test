@@ -3,14 +3,14 @@ version: 2.1
 jobs:
   test-build-01:
     docker:
-      - image:  cimg/python:3.9
+      - image: cimg/python:3.9
 
     steps:
       - checkout
       # - run:
       #     name: "Say hello"
-      #     command: "echo 'python3 saying hello'" 
-       
+      #     command: "echo 'python3 saying hello'"
+
       # - run:
       #     name: "check python3 and pip"
       #     command: "which python3 && python3 --version && which pip && which pip3"
@@ -25,10 +25,10 @@ jobs:
 
       - setup_remote_docker:
           docker_layer_caching: true
-      
+
       - run:
           name: "check docker"
-          command: "which docker && docker --version"
+          command: "which docker && docker --version && pwd"
       - run:
           name: "check docker creds"
           command: "echo $DOCKERHUB_USERNAME && echo $DOCKERHUB_PASS"
@@ -40,7 +40,6 @@ jobs:
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push x64nik/cci-flask-test:cci-flask-test
 
-
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
@@ -48,5 +47,5 @@ workflows:
     jobs:
       - test-build-01:
           context:
-              - DOCKERHUB_USERNAME
-              - DOCKERHUB_PASS
+            - DOCKERHUB_USERNAME
+            - DOCKERHUB_PASS
