@@ -49,6 +49,6 @@ workflows:
           context:
             - DOCKERHUB_USERNAME
             - DOCKERHUB_PASS
-	  filter:
+	  filters:
 	    branches:
               only: testing	
