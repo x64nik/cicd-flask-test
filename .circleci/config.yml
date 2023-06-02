@@ -8,7 +8,27 @@ jobs:
       - checkout
       - run:
           name: Check 01
-          command: echo "hlo"
+          command: whoami
+
+      - run:
+          name: Check 02
+          command: ls -la
+
+      - run:
+          name: Check 03
+          command: ip a
+
+      - run:
+          name: Check 04
+          command: cat /etc/os-release
+
+      - run:
+          name: Check 05
+          command: uname -r
+
+      - run:
+          name: Check 06
+          command: ping -c 3 rushikesh.de
 
 workflows:
   say-hello-workflow:
