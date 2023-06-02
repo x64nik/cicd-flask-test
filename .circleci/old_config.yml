@@ -1,26 +1,51 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/configuration-reference/#jobs
 jobs:
-  say-hello:
-    # Specify the execution environment. You can specify an image from Docker Hub or use one of our convenience images from CircleCI's Developer Hub.
-    # See: https://circleci.com/docs/configuration-reference/#executor-job
+  test-build-01:
     docker:
-      - image: cimg/base:stable
-    # Add steps to the job
-    # See: https://circleci.com/docs/configuration-reference/#steps
+      - image: cimg/python:3.9
+
     steps:
       - checkout
+      # - run:
+      #     name: "Say hello"
+      #     command: "echo 'python3 saying hello'"
+
+      # - run:
+      #     name: "check python3 and pip"
+      #     command: "which python3 && python3 --version && which pip && which pip3"
+
+      # - run:
+      #     name: "install flask"
+      #     command: "pip3 install flask"
+
+      # - run:
+      #     name: "check code"
+      #     command: "pwd && ls -la"
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
       - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
+          name: "check docker"
+          command: "which docker && docker --version && pwd"
+      - run:
+          name: "check docker creds"
+          command: "echo $DOCKERHUB_USERNAME && echo $DOCKERHUB_PASS"
+      - run:
+          name: "build and push to docker hub"
+          command: |
+            pip3 install flask
+            docker build -t x64nik/cci-flask-test:latest .
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            docker push x64nik/cci-flask-test:latest
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/configuration-reference/#workflows
 workflows:
-  say-hello-workflow:
+  test-build-01-workflow:
     jobs:
-      - say-hello
+      - test-build-01:
+          context:
+            - DOCKERHUB_USERNAME
+            - DOCKERHUB_PASS
