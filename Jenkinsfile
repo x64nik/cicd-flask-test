@@ -31,6 +31,7 @@ node {
         withCredentials([string(credentialsId: 'GITHUB_ACCESS_TOKEN', variable: 'TOKEN')]) {
             sh "git commit -a -m 'update docker tag to ${env.BUILD_NUMBER}'"
             sh 'git push https://$TOKEN@github.com/x64nik/cicd-flask-test.git'
+            // test commit
         }
     }
 }
