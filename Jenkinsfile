@@ -21,5 +21,7 @@ node {
         sh "docker push  x64nik/basic-flask-app:${env.BUILD_NUMBER}"
     }
        
-
+    stage("test") {
+        sh "cat deployment/k8s-deploy.yml"
+    }
 }
