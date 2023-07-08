@@ -32,3 +32,4 @@ spec:
       targetPort: 5050
   selector:
     app: basic-flask-app-demo-01
+# ok
