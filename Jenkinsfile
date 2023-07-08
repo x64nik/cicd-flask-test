@@ -1,7 +1,8 @@
 node {
 
     stage("Git Clone"){
-            git branch: 'argocd', credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/x64nik/cicd-flask-test.git'
+            // git branch: 'argocd', credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/x64nik/cicd-flask-test.git'
+            sh "git clone git@git:x64nik/cicd-flask-test.git"
         }
     
     stage("Docker build"){
@@ -28,11 +29,7 @@ node {
     }
 
     stage("Push changes to github") {
-        withCredentials([gitUsernamePassword(credentialsId: 'GITHUB_ACCESS_TOKEN', gitToolName: 'Default')]) {
-            sh "git push -u origin argocd"
-        }
+        sh "git push -u origin argocd"
     }
-
-    
 
 }
