@@ -28,10 +28,8 @@ node {
     }
 
     stage("Push changes to github") {
-        steps {
-            withCredentials([gitUsernamePassword(credentialsId: 'GITHUB_ACCESS_TOKEN', gitToolName: 'Default')]) {
-                sh "git push -u origin argocd"
-            }
+        withCredentials([gitUsernamePassword(credentialsId: 'GITHUB_ACCESS_TOKEN', gitToolName: 'Default')]) {
+            sh "git push -u origin argocd"
         }
     }
 
