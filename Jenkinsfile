@@ -28,7 +28,8 @@ node {
     }
 
     stage("Push changes to github") {
-        sh "git push https://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@github.com/x64nik/cicd-flask-test.git"
+        withCredentials([string(credentialsId: 'GITHUB_ACCESS_TOKEN', variable: 'TOKEN')]) {
+            sh 'git push https://$TOKEN@github.com/x64nik/cicd-flask-test.git'
+        }
     }
-    
 }
