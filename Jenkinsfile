@@ -1,7 +1,7 @@
 node {
 
     stage("Git Clone"){
-            git branch: 'main', credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/x64nik/cicd-flask-test.git'
+            git branch: 'argocd', credentialsId: 'GIT_HUB_CREDENTIALS', url: 'https://github.com/x64nik/cicd-flask-test.git'
         }
     
     stage("Docker build"){
@@ -27,21 +27,14 @@ node {
         sh "cat deployment/k8s-deploy.yml"
     }
 
-    stage('Update GIT') {
-            script {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE') {
-                    withCredentials([usernamePassword(credentialsId: 'GIT_HUB_CREDENTIALS', passwordVariable: 'GIT_PASSWORD', usernameVariable: 'GIT_USERNAME')]) {
-                        //def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
-                        sh "git config user.email rushidarunte123@gmail.com"
-                        sh "git config user.name x64nik"
-                        sh "git checkout argocd"
-                        sh "cat deployment/k8s-deploy.yml"
-                        sh "git add ."
-                        sh "git commit -m 'updated image tag to : ${env.BUILD_NUMBER}'"
-                        sh "git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/cicd-flask-test.git HEAD:argocd"
-      }
+    stage("Push changes to github") {
+        steps {
+            withCredentials([gitUsernamePassword(credentialsId: 'GITHUB_ACCESS_TOKEN', gitToolName: 'Default')]) {
+                sh "git push -u origin argocd"
+            }
+        }
     }
-  }
-}
+
+    
 
 }
