@@ -8,10 +8,8 @@ node {
         sh 'docker version'
         sh 'docker build -t basic-flask-app-demo-01 .'
         sh 'docker image list'
-        sh 'docker tag basic-flask-app-demo-01 x64nik/basic-flask-app:test'
+        sh "docker tag basic-flask-app-demo-01 x64nik/basic-flask-app:${env.BUILD_NUMBER}"
     } 
-
-    
     
     stage("Docker Login"){
         withCredentials([string(credentialsId: 'DOCKER_HUB_PASSWORD', variable: 'PASSWORD')]) {
@@ -20,7 +18,7 @@ node {
     } 
     
     stage("Push Image to Docker Hub"){
-        sh 'docker push  x64nik/basic-flask-app:test'
+        sh "docker push  x64nik/basic-flask-app:${env.BUILD_NUMBER}"
     }
        
 
