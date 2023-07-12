@@ -15,7 +15,7 @@ node {
     }
 
     stage('Trigger Manifest Update') {
-                echo "triggering cicd-flask-test1-deploy job"
-                build job: 'cicd-flask-test1-deploy', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
-        }
+        echo "triggering cicd-flask-test1-deploy job"
+        build job: 'cicd-flask-test1-deploy', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
+    }
 }
